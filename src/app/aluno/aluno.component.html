@@ -1,18 +1,49 @@
-<h2>Insira seus dados:</h2><br>
+<h2>Cadastro de alunos</h2><br>
 
-<div class="form-floating mb-3">
-  <input type="email" class="form-control" id="floatingInputDisabled" placeholder="name@example.com" >
-  <label for="floatingInputDisabled">Nome</label>
+<form #alunoForm="ngForm" class="form-aluno">
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="nome" [(ngModel)]="novoAluno.nome" required name="nome">
+    <label for="nome">Nome</label>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="primeiraNota" [(ngModel)]="novoAluno.primeiraNota" required name="primeiraNota">
+    <label for="primeiraNota">Primeira Nota</label>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="segundaNota" [(ngModel)]="novoAluno.segundaNota" required name="segundaNota">
+    <label for="segundaNota">Segunda Nota</label>
+  </div>
+
+  <button type="button" (click)="adicionarAluno()" class="btn btn-dark" >Adicionar</button><br><br>
+</form>
+
+<h2>Tabela</h2><br>
+
+<div class="table-aluno">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Média</th>
+        <th scope="col">Condição</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let aluno of alunos; let i = index">
+        <td>{{ aluno.nome }}</td>
+        <td>{{ calcularMedia(aluno) }}</td>
+        <td>{{ calcularCondicao(aluno) }}</td>
+        <td>
+          <button (click)="editarAluno(i)" class="btn btn-dark">Editar</button>
+
+          <button (click)="excluirAluno(i)" class="btn btn-dark">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
-<div class="form-floating mb-3">
-  <input type="email" class="form-control" id="floatingInputDisabled" placeholder="name@example.com" >
-  <label for="floatingInputDisabled">Primeira Nota</label>
-</div>
 
-<div class="form-floating mb-3">
-  <input type="email" class="form-control" id="floatingInputDisabled" placeholder="name@example.com" >
-  <label for="floatingInputDisabled">Segunda Nota</label>
-</div>
-
-<button type="button" class="btn btn-dark" >Calcular</button><br><br>
